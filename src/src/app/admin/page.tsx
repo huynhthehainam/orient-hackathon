@@ -1,6 +1,3 @@
-import { redirect } from "next/navigation";
-
-export default function Admin() {
-  redirect("/admin/dashboard/default");
+export default function Page() {
   return <>Coming Soon</>;
 }

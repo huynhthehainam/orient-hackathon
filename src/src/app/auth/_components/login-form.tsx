@@ -44,7 +44,7 @@ export function LoginForm() {
         setError(body.error ?? "Login failed");
         return;
       }
-      window.location.href = "/admin/dashboard/default";
+      window.location.href = "/admin/default";
     } catch {
       setError("Network error. Please try again.");
     } finally {
