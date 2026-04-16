@@ -8,12 +8,7 @@
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/next",
       "runtimeArgs": ["dev"],
       "autoAttachChildProcesses": false,
-      "console": "integratedTerminal",
-      "serverReadyAction": {
-        "pattern": "- Local:.+(https?://.+)",
-        "uriFormat": "%s",
-        "action": "debugWithChrome"
-      }
+      "console": "integratedTerminal"
     },
     {
       "name": "Next.js: debug client-side",
@@ -28,12 +23,7 @@
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/next",
       "runtimeArgs": ["dev"],
       "autoAttachChildProcesses": false,
-      "console": "integratedTerminal",
-      "serverReadyAction": {
-        "pattern": "- Local:.+(https?://.+)",
-        "uriFormat": "%s",
-        "action": "debugWithChrome"
-      }
+      "console": "integratedTerminal"
     }
   ]
 }
