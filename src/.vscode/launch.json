@@ -7,10 +7,7 @@
       "request": "launch",
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/next",
       "runtimeArgs": ["dev"],
-      "env": {
-        "NODE_OPTIONS": "--inspect=9240"
-      },
-      "port": 9240,
+      "autoAttachChildProcesses": false,
       "console": "integratedTerminal",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
@@ -30,10 +27,7 @@
       "request": "launch",
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/next",
       "runtimeArgs": ["dev"],
-      "env": {
-        "NODE_OPTIONS": "--inspect=9240"
-      },
-      "port": 9240,
+      "autoAttachChildProcesses": false,
       "console": "integratedTerminal",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
