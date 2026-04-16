@@ -8,8 +8,9 @@
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/next",
       "runtimeArgs": ["dev"],
       "env": {
-        "NODE_OPTIONS": "--inspect"
+        "NODE_OPTIONS": "--inspect=9240"
       },
+      "port": 9240,
       "console": "integratedTerminal",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
@@ -30,8 +31,9 @@
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/next",
       "runtimeArgs": ["dev"],
       "env": {
-        "NODE_OPTIONS": "--inspect"
+        "NODE_OPTIONS": "--inspect=9240"
       },
+      "port": 9240,
       "console": "integratedTerminal",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
