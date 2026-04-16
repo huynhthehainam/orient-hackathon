@@ -26,8 +26,23 @@ export async function proxy(request: NextRequest) {
     },
   );
 
-  // Refresh the session so it doesn't expire
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { pathname } = request.nextUrl;
+
+  // Guard: admin routes require authentication
+  if (pathname.startsWith("/admin") && !user) {
+    const loginUrl = new URL("/auth/login", request.url);
+    loginUrl.searchParams.set("next", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // Guard: redirect authenticated users away from auth pages
+  if (pathname.startsWith("/auth") && user) {
+    return NextResponse.redirect(new URL("/admin/dashboard/default", request.url));
+  }
 
   return supabaseResponse;
 }
