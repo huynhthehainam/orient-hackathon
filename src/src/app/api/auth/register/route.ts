@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 
-import bcrypt from "bcryptjs";
 import { z } from "zod";
 
-import { prisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 
 const registerSchema = z.object({
   email: z.string().email(),
@@ -20,18 +19,27 @@ export async function POST(request: Request) {
   }
 
   const { email, password, name } = parsed.data;
+  const supabase = await createClient();
 
-  const existing = await prisma.user.findUnique({ where: { email } });
-  if (existing) {
-    return NextResponse.json({ error: "Email already registered" }, { status: 409 });
-  }
-
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  const user = await prisma.user.create({
-    data: { email, password: hashedPassword, name },
-    select: { id: true, email: true, name: true, role: true },
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { name },
+    },
   });
 
-  return NextResponse.json({ user }, { status: 201 });
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
+
+  return NextResponse.json(
+    {
+      user: {
+        id: data.user?.id,
+        email: data.user?.email,
+      },
+    },
+    { status: 201 },
+  );
 }

@@ -6,7 +6,17 @@
       "WebFetch(domain:pris.ly)",
       "WebFetch(domain:www.prisma.io)",
       "WebSearch",
-      "Bash(npx next:*)"
+      "Bash(npx next:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(sqlcmd -S localhost -Q \"SELECT @@VERSION\" -E)",
+      "Bash(sqlcmd -S localhost\\\\\\\\SQLEXPRESS -Q \"SELECT @@VERSION\" -E)",
+      "Bash(sqlcmd -S . -Q \"SELECT @@VERSION\" -E)",
+      "Bash(sqlcmd -S localhost -Q \"SELECT local_tcp_port FROM sys.dm_exec_connections WHERE session_id = @@SPID\" -E)",
+      "Bash(sqlcmd -S \".\\\\SQLEXPRESS\" -Q \"SELECT 1 AS test\" -E)",
+      "Bash(sqlcmd -S localhost -Q \"SELECT @@SERVICENAME\" -E)",
+      "Bash(powershell -Command \"Get-ItemProperty -Path 'HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Microsoft SQL Server\\\\MSSQL16.MSSQLSERVER\\\\MSSQLServer\\\\SuperSocketNetLib\\\\Tcp' -Name 'Enabled'\")",
+      "Bash(powershell -Command \"Start-Process powershell -Verb RunAs -Wait -ArgumentList '-Command', 'Set-ItemProperty -Path \\\\\"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Microsoft SQL Server\\\\MSSQL16.MSSQLSERVER\\\\MSSQLServer\\\\SuperSocketNetLib\\\\Tcp\\\\\" -Name \\\\\"Enabled\\\\\" -Value 1; Set-ItemProperty -Path \\\\\"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Microsoft SQL Server\\\\MSSQL16.MSSQLSERVER\\\\MSSQLServer\\\\SuperSocketNetLib\\\\Tcp\\\\IPAll\\\\\" -Name \\\\\"TcpPort\\\\\" -Value \\\\\"1433\\\\\"; Set-ItemProperty -Path \\\\\"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Microsoft SQL Server\\\\MSSQL16.MSSQLSERVER\\\\MSSQLServer\\\\SuperSocketNetLib\\\\Tcp\\\\IPAll\\\\\" -Name \\\\\"TcpDynamicPorts\\\\\" -Value \\\\\"\\\\\"; Restart-Service MSSQLSERVER -Force'\")",
+      "Bash(powershell -Command \"Set-ItemProperty -Path 'HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Microsoft SQL Server\\\\MSSQL16.MSSQLSERVER\\\\MSSQLServer\\\\SuperSocketNetLib\\\\Tcp' -Name 'Enabled' -Value 1; Set-ItemProperty -Path 'HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Microsoft SQL Server\\\\MSSQL16.MSSQLSERVER\\\\MSSQLServer\\\\SuperSocketNetLib\\\\Tcp\\\\IPAll' -Name 'TcpPort' -Value '1433'; Set-ItemProperty -Path 'HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Microsoft SQL Server\\\\MSSQL16.MSSQLSERVER\\\\MSSQLServer\\\\SuperSocketNetLib\\\\Tcp\\\\IPAll' -Name 'TcpDynamicPorts' -Value ''; Restart-Service MSSQLSERVER -Force\")"
     ]
   }
 }

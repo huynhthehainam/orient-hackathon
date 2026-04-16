@@ -1,51 +1,37 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
-const isAdminRoute = (pathname: string) => pathname.startsWith("/admin");
-const isAuthRoute = (pathname: string) => pathname.startsWith("/auth");
-const isApiRoute = (pathname: string) => pathname.startsWith("/api");
+import { createServerClient } from "@supabase/ssr";
 
 export async function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  let supabaseResponse = NextResponse.next({ request });
 
-  // Skip proxy for API routes (they handle auth internally)
-  if (isApiRoute(pathname)) {
-    return NextResponse.next();
-  }
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          for (const { name, value } of cookiesToSet) {
+            request.cookies.set(name, value);
+          }
+          supabaseResponse = NextResponse.next({ request });
+          for (const { name, value, options } of cookiesToSet) {
+            supabaseResponse.cookies.set(name, value, options);
+          }
+        },
+      },
+    },
+  );
 
-  // Check authentication for admin and login routes
-  if (isAdminRoute(pathname) || isAuthRoute(pathname)) {
-    // const token = request.cookies.get('auth-token')?.value;
-    // const payload = token ? await AuthService.verifyToken(token) : null;
-    // const isAuth = !!payload;
-    const isAuth = true;
+  // Refresh the session so it doesn't expire
+  await supabase.auth.getUser();
 
-    if (isAdminRoute(pathname) && !isAuth) {
-      return NextResponse.redirect(new URL("/auth/login", request.url));
-    }
-    if (isAuthRoute(pathname) && isAuth) {
-      return NextResponse.redirect(new URL("/admin/dashboard", request.url));
-    }
-
-    return NextResponse.next();
-  }
-
-  return NextResponse.next();
+  return supabaseResponse;
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - favicon.png (favicon file)
-     * - assets (static assets)
-     * - robots.txt (robots file)
-     * - sitemap.xml (sitemap file)
-     * - sitemap-*.xml (sitemap files)
-     */
-    "/((?!api|_next/static|_next/image|favicon.ico|favicon.png|assets|robots.txt|sitemap.xml|sitemap-).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|favicon.png|assets|robots.txt|sitemap.xml|sitemap-).*)"],
 };
