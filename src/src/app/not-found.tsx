@@ -11,7 +11,7 @@ export default function NotFound() {
       <p className="text-muted-foreground">
         The page you are looking for could not be found.
       </p>
-      <Link prefetch={false} replace href="/admin/dashboard/default">
+      <Link prefetch={false} replace href="/admin/default">
         <Button variant="outline">Go back home</Button>
       </Link>
     </div>

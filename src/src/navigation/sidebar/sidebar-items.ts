@@ -50,39 +50,39 @@ export const sidebarItems: NavGroup[] = [
     items: [
       {
         title: "Default",
-        url: "/admin/dashboard/default",
+        url: "/admin/default",
         icon: LayoutDashboard,
       },
       {
         title: "CRM",
-        url: "/admin/dashboard/crm",
+        url: "/admin/crm",
         icon: ChartBar,
       },
       {
         title: "Finance",
-        url: "/admin/dashboard/finance",
+        url: "/admin/finance",
         icon: Banknote,
       },
       {
         title: "Analytics",
-        url: "/admin/dashboard/analytics",
+        url: "/admin/analytics",
         icon: Gauge,
       },
       {
         title: "E-commerce",
-        url: "/admin/dashboard/coming-soon",
+        url: "/admin/coming-soon",
         icon: ShoppingBag,
         comingSoon: true,
       },
       {
         title: "Academy",
-        url: "/admin/dashboard/coming-soon",
+        url: "/admin/coming-soon",
         icon: GraduationCap,
         comingSoon: true,
       },
       {
         title: "Logistics",
-        url: "/admin/dashboard/coming-soon",
+        url: "/admin/coming-soon",
         icon: Forklift,
         comingSoon: true,
       },
@@ -94,43 +94,43 @@ export const sidebarItems: NavGroup[] = [
     items: [
       {
         title: "Email",
-        url: "/admin/dashboard/coming-soon",
+        url: "/admin/coming-soon",
         icon: Mail,
         comingSoon: true,
       },
       {
         title: "Chat",
-        url: "/admin/dashboard/coming-soon",
+        url: "/admin/coming-soon",
         icon: MessageSquare,
         comingSoon: true,
       },
       {
         title: "Calendar",
-        url: "/admin/dashboard/coming-soon",
+        url: "/admin/coming-soon",
         icon: Calendar,
         comingSoon: true,
       },
       {
         title: "Kanban",
-        url: "/admin/dashboard/coming-soon",
+        url: "/admin/coming-soon",
         icon: Kanban,
         comingSoon: true,
       },
       {
         title: "Invoice",
-        url: "/admin/dashboard/coming-soon",
+        url: "/admin/coming-soon",
         icon: ReceiptText,
         comingSoon: true,
       },
       {
         title: "Users",
-        url: "/admin/dashboard/coming-soon",
+        url: "/admin/coming-soon",
         icon: Users,
         comingSoon: true,
       },
       {
         title: "Roles",
-        url: "/admin/dashboard/coming-soon",
+        url: "/admin/coming-soon",
         icon: Lock,
         comingSoon: true,
       },
@@ -153,7 +153,7 @@ export const sidebarItems: NavGroup[] = [
     items: [
       {
         title: "Others",
-        url: "/admin/dashboard/coming-soon",
+        url: "/admin/coming-soon",
         icon: SquareArrowUpRight,
         comingSoon: true,
       },

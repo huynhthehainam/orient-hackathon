@@ -41,7 +41,7 @@ export async function proxy(request: NextRequest) {
 
   // Guard: redirect authenticated users away from auth pages
   if (pathname.startsWith("/auth") && user) {
-    return NextResponse.redirect(new URL("/admin/dashboard/default", request.url));
+    return NextResponse.redirect(new URL("/admin/default", request.url));
   }
 
   return supabaseResponse;
