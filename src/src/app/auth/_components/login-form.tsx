@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,9 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -26,18 +30,31 @@ export function LoginForm() {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    toast("You submitted the following values", {
-      description: (
-        <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setIsPending(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const body = await res.json();
+        setError(body.error ?? "Login failed");
+        return;
+      }
+      window.location.href = "/dashboard/default";
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setIsPending(false);
+    }
   };
 
   return (
     <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      {error && <div className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</div>}
       <FieldGroup className="gap-4">
         <Controller
           control={form.control}
@@ -52,6 +69,7 @@ export function LoginForm() {
                 placeholder="you@example.com"
                 autoComplete="email"
                 aria-invalid={fieldState.invalid}
+                disabled={isPending}
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -70,6 +88,7 @@ export function LoginForm() {
                 placeholder="••••••••"
                 autoComplete="current-password"
                 aria-invalid={fieldState.invalid}
+                disabled={isPending}
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -86,6 +105,7 @@ export function LoginForm() {
                 checked={field.value}
                 onCheckedChange={(checked) => field.onChange(Boolean(checked))}
                 aria-invalid={fieldState.invalid}
+                disabled={isPending}
               />
               <FieldContent>
                 <FieldLabel htmlFor="login-remember" className="font-normal">
@@ -97,8 +117,8 @@ export function LoginForm() {
           )}
         />
       </FieldGroup>
-      <Button className="w-full" type="submit">
-        Login
+      <Button className="w-full" type="submit" disabled={isPending}>
+        {isPending ? "Logging in..." : "Login"}
       </Button>
     </form>
   );
