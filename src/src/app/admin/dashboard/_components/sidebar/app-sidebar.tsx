@@ -2,7 +2,15 @@
 
 import Link from "next/link";
 
-import { CircleHelp, ClipboardList, Command, Database, File, Search, Settings } from "lucide-react";
+import {
+  CircleHelp,
+  ClipboardList,
+  Command,
+  Database,
+  File,
+  Search,
+  Settings,
+} from "lucide-react";
 import { useShallow } from "zustand/react/shallow";
 
 import {
@@ -78,9 +86,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link prefetch={false} href="/dashboard/default">
+              <Link prefetch={false} href="/admin/dashboard/default">
                 <Command />
-                <span className="font-semibold text-base">{APP_CONFIG.name}</span>
+                <span className="font-semibold text-base">
+                  {APP_CONFIG.name}
+                </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
