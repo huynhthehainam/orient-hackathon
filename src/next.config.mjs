@@ -7,8 +7,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/dashboard",
-        destination: "/dashboard/default",
+        source: "/admin/dashboard",
+        destination: "/admin/dashboard/default",
         permanent: false,
       },
     ];
